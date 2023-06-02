@@ -18,6 +18,8 @@ bool isPalindrome(int n) {
 	if (n < 0 || (n != 0 && (n / 10) == 0)) return false;
 
 	/* First Method -- Convert the number to a string and check the string indices
+		TC = O(N);
+		SC = O(N);
 
 		string number = to_string(n);
 
@@ -44,17 +46,17 @@ bool isPalindrome(int n) {
 
 	/* Third Approach - Intialise another integer and put reversed half digits
 	   of the original number into the new integer and then compare both the halves
-			TC = O(N);
+		TC = O(logn);
 		SC = O(N);
 
-	int half = 0;
+		int half = 0;
 
-	while(n>half){
-		half = half*10 + n%10;
-		n/=10;
-	}
+		while(n>half){
+			half = half*10 + n%10;
+			n/=10;
+		}
 
-	return (x==half || x==half/10) ;
+		return (x==half || x==half/10) ;
 
 	*/
 
