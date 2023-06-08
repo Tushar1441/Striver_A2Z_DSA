@@ -32,20 +32,32 @@ using namespace std;
 
 */
 
+
+// Optimal Approach --> without using extra space (do in-place swaps)
 void moveZeroestoEnd(vector<int> &arr, int n) {
 	int n = arr.size();
 	if (n == 1)return;
-	int index = 0;
+	int index = -1;
+
+	// storing first occurence of zero
 	for (int i = 0; i < n; i++) {
+		if (arr[i] == 0) {
+			index = i;
+			break;
+		}
+	}
+
+	if (index == -1) return;
+
+	for (int i = index + 1; i < n; i++) {
 		if (arr[i] != 0) {
-			arr[index] = arr[i];
+			swap(arr[index], arr[i]);
 			index++;
 		}
 	}
 
-	for (int i = index ; i < n; i++) {
-		arr[i] = 0;
-	}
+	// TC --> O(n) (both loops run for total n times --> (0 -> index) + (index+1 -> n))
+	// SC --> O(1)
 }
 
 
