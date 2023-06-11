@@ -2,8 +2,8 @@
 using namespace std;
 
 
-string removeParantheses(string &s) {
-
+bool powerOf2(int n) {
+	return ((n & (n - 1))  == 0 ) ? 1 : 0;
 }
 
 
@@ -14,9 +14,9 @@ int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 #endif
-	string s;
-	cin >> s;
-	cout << removeParantheses(s) << endl;
+	int n, i;
+	cin >> n;
+	cout << powerOf2(n) << endl;
+
 
 }
-

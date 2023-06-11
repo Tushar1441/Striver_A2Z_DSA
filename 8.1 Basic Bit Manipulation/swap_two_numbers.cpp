@@ -2,8 +2,12 @@
 using namespace std;
 
 
-string removeParantheses(string &s) {
+void swapTwoNumbers(int &a, int &b) {
+	int x = a ^ b;
+	a ^= x;
+	b ^= x;
 
+	return;
 }
 
 
@@ -14,9 +18,8 @@ int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 #endif
-	string s;
-	cin >> s;
-	cout << removeParantheses(s) << endl;
-
+	int n, m;
+	cin >> n >> m;
+	swapTwoNumbers(n, m) ;
+	cout << n << " " << m << endl;
 }
-

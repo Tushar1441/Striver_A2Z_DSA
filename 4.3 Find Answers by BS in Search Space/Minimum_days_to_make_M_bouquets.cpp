@@ -1,24 +1,48 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-int minDays (vector<int> &arr, int m, int k) {
+bool isPossible(vector<int> &arr, int m, int k, int mid) {
 	int n = arr.size();
-	if (n < m * k)return -1;
-	int k1 = 0, m1 = 0;
+	int countRose = 0;
+	int count = 0;
 	for (int i = 0; i < n; i++) {
-		k1++;
-		if (k1 == k) {
-			m1++;
-			k1 = 0;
+		if (arr[i] <= mid)count++;
+		if (count == k) {
+			countRose++;
+			count = 0;
 		}
 
-		if (m1 == m) {
-			return arr[i];
+		else if (arr[i] > mid) {
+			count = 0;
 		}
 	}
 
-	return -1;
+	if (countRose < m)return false;
+	return true;
+}
+
+
+int minDays (vector<int> &arr, int m, int k) {
+	int n = arr.size();
+	int low = 1;
+	int high = *max_element(arr.begin(), arr.end());
+	int res = -1;
+
+	while (low <= high) {
+		int mid = (low + high) >> 1;
+
+		if (isPossible(arr, m, k, mid) == true) {
+			res = mid;
+			high = mid - 1;
+		}
+
+		else low = mid + 1;
+	}
+
+	return res;
+
+	// TC --> O(n * log(max))  (max -- maximum element in array)
+	// SC --> O(1)
 }
 
 

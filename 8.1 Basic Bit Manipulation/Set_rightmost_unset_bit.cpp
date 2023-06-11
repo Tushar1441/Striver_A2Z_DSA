@@ -2,9 +2,13 @@
 using namespace std;
 
 
-string removeParantheses(string &s) {
-
+int setRightmostUnsetBit(int n) {
+	int check = n & (n + 1);
+	if (check == 0)return n;
+	int ans = n | n + 1;
+	return ans;
 }
+
 
 
 int main() {
@@ -14,9 +18,8 @@ int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 #endif
-	string s;
-	cin >> s;
-	cout << removeParantheses(s) << endl;
+	int n, i;
+	cin >> n;
+	cout << setRightmostUnsetBit(n) << endl;
 
 }
-
