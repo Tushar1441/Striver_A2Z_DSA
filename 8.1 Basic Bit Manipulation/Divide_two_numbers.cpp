@@ -26,7 +26,9 @@ int divideNumbers1(int a, int b) {
 	// SC --> O(1);
 }
 
-int divideNumbers(int a, int b) {
+
+// Better Solution -- Using Binary Search
+int divideNumbers2(int a, int b) {
 	if (b == 1)return a;
 	if (a == INT_MIN) {
 		if (b == 1)return INT_MIN;
@@ -56,10 +58,41 @@ int divideNumbers(int a, int b) {
 
 	return ans * neg;
 
+
+	// TC --> O(log a)
+	// SC --> O(1)
 }
 
 
+// Method 3 --> Using Bit Manipulation
+int divideNumbers(int a, int b) {
+	if (b == 1)return a;
+	if (a == INT_MIN) {
+		if (b == 1)return INT_MIN;
+		else if (b == -1)return INT_MAX;
+	}
 
+	int neg = -1;
+	if ((a >= 0 && b >= 0) ||  (a < 0 && b < 0))neg = 1;
+	a = abs(a); b = abs(b);
+
+	int ans = 0;
+
+	while (a >= b) {
+		int q = 0;
+		while (a > (b << q + 1))q++;
+
+		ans += (1 << q);
+
+		a -= (b << q);
+	}
+
+	return ans * neg;
+
+
+	// TC --> O(log a)
+	// SC --> O(1)
+}
 
 
 int main() {
