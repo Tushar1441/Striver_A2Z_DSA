@@ -5,28 +5,56 @@ using namespace std;
 // Brute Force Approach -- Using three nested loops
 vector<vector<int>> zeroSum1(vector<int> &arr) {
 	int n = arr.size();
-	vector<vector<int>> ans;
+	set<vector<int>> st;
 	for (int i = 0; i < n; i++) {
 		for (int j = i + 1; j < n; j++) {
 			for (int k = j + 1; k < n; k++) {
 				if (arr[i] + arr[j] + arr[k] == 0) {
-					ans.push_back({arr[i], arr[j], arr[k]});
+					vector<int> temp = {arr[i], arr[j], arr[k]};
+					sort(temp.begin(), temp.end());
+					st.insert(temp);
 				}
 			}
 		}
 	}
 
+	vector<vector<int>> ans(st.begin(), st.end());
 	return ans;
 
-	// TC --> O(n^3)
+	// TC --> O(n^3 * 3k)
 	// SC --> O(3*k) k is the number of triplets
 }
 
 
 
+// Better Approach --> Using Hashing
+vector<vector<int>> zeroSum(vector<int> &arr) {
+	int n = arr.size();
+	set<vector<int>> st;
+	for (int i = 0; i < n; i++) {
+		set <int> hashset;
+		for (int j = i + 1; j < n; j++) {
+			if (hashset.find(0 - (arr[i] + arr[j])) != hashset.end()) {
+				vector<int> temp = {arr[i] , arr[j] , -(arr[i] + arr[j])};
+				sort(temp.begin(), temp.end());
+				st.insert(temp);
+			}
+
+			hashset.insert(arr[j]);
+		}
+	}
+
+	vector <vector<int>> ans(st.begin(), st.end());
+	return ans;
+
+	// TC --> O(n^2) * O(logm)  m is the number of elements in the set;
+	// SC --> O(n);
+}
+
+
 // Optimal Approach --> Taking one element as starting point and do binary search
 // for the rest of the two elements
-vector<vector<int>> zeroSum(vector<int> &arr) {
+vector<vector<int>> zeroSum3(vector<int> &arr) {
 	int n = arr.size();
 	sort(arr.begin(), arr.end());
 	vector<vector<int>> ans;
