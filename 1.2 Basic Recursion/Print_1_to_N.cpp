@@ -1,18 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void print_1toN(int cnt, int n) {
-	if (cnt > n) return;
-	cout << cnt << " ";
-	cnt++;
-	print_1toN(cnt , n);
+void print_1toN( int n) {
+	if (n == 0) return;
+	print_1toN(n - 1);
+	cout << n << " ";
 }
 
-void print_Nto1(int cnt , int n) {
-	if (cnt > n)return;
-	cout << n - cnt + 1 << " ";
-	cnt++;
-	print_Nto1(cnt, n);
+void print_Nto1(int n) {
+	if (n == 0)return;
+	cout << n << " ";
+	print_Nto1(n - 1);
 }
 
 
@@ -25,5 +23,7 @@ int main() {
 #endif
 	int n;
 	cin >> n;
-	print_Nto1(1, n);
+	print_1toN(n);
+	cout << endl;
+	print_Nto1(n);
 }

@@ -3,6 +3,23 @@ using namespace std;
 
 
 string removeParantheses(string &s) {
+	string ans = "";
+	int bal  = 0;
+	for (int i = 0; i < s.size(); i++) {
+		if (s[i] == '(') {
+			if (bal) {
+				ans.push_back('(');
+			}
+			bal += 1;
+		}
+
+		else {
+			bal -= 1;
+			if (bal)ans.push_back(')');
+		}
+	}
+
+	return ans;
 
 }
 

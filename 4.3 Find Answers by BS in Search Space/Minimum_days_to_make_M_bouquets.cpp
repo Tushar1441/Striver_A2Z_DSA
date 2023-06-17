@@ -25,17 +25,22 @@ bool isPossible(vector<int> &arr, int m, int k, int mid) {
 int minDays (vector<int> &arr, int m, int k) {
 	int n = arr.size();
 	int low = 1;
+	// if the array contains all duplicate elements then the maximum becomes minimum.
 	int high = *max_element(arr.begin(), arr.end());
 	int res = -1;
 
 	while (low <= high) {
 		int mid = (low + high) >> 1;
 
+		// check if it is possible to make m boquets with k adjacant flowers
+		// in equal to or less than mid days.
+		// if possible it can be our answer.so, store it and move to left.
 		if (isPossible(arr, m, k, mid) == true) {
 			res = mid;
 			high = mid - 1;
 		}
 
+		// else we have to take more days so move right.
 		else low = mid + 1;
 	}
 
