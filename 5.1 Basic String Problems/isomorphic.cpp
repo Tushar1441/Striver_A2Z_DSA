@@ -3,15 +3,38 @@ using namespace std;
 
 
 bool isIsomorphic(string &s, string &t) {
-	vector<int>hashh1[200];
-	vector<int>hashh2[200];
+	// Check if the lengths of the two strings are not equal
+	if (s.size() != t.size())return false;
 
+	// Initialize two unordered maps to keep track of character
+	// mappings between the two strings
+	unordered_map<char, char>mpp1;
+	unordered_map<char, char>mpp2;
+
+	// Iterate through the two input strings simultaneously
 	for (int i = 0; i < s.size(); i++) {
-		hashh1[s[i]]++;
+
+
+		// If the current character of s and t is not already mapped, add it to the maps
+		if (mpp1.count(s[i]) == 0  && mpp2.count(t[i]) == 0) {
+			mpp1[s[i]] = t[i];
+			mpp2[t[i]] = s[i];
+		}
+
+		// If sChar is already mapped but not to tChar,
+		// or if tChar is already mapped but not to sChar,
+		// then the strings are not isomorphic
+		else if (mpp1.count(s[i]) > 0 && mpp1[s[i]] != t[i]) {
+			return false;
+		}
+		else if (mpp2.count(t[i]) > 0 && mpp2[t[i]] != s[i]) {
+			return false;
+		}
 	}
-	for (int i = 0; i < t.size(); i++) {
-		hashh2[t[i]]++;
-	}
+
+	// If the function reaches this point without returning false in the loop,
+	// then the two strings are isomorphic
+	return true;
 
 }
 

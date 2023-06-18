@@ -1,36 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool canFill(int row, int col, vector<string>&ds, int n) {
-	int ro = row;
-	int co = col;
-
-	// checking all upper left diagonal places on the board.
-	while (row >= 0 && col >= 0) {
-		if (ds[row][col] == 'Q')return false;
-		row--;
-		col--;
-	}
-
-	// checking all the left columns of the row on the board.
-	row = ro; col = co;
-	while (col >= 0) {
-		if (ds[row][col] == 'Q')return false;
-		col--;
-	}
-
-	// checking all the bottom left diagonal places on the board.
-	col = co;
-	while (row < n && col >= 0) {
-		if (ds[row][col] == 'Q')return false;
-		row++;
-		col--;
-	}
-
-	return true;
-}
-
-
 // Method 1 --> using a function to check if we can place a queen on the chessboard.
 vector<vector<string>> solveNQueens1(int n) {
 	vector<vector<string>> ans;
@@ -64,7 +34,38 @@ void solve1(int col,  vector<string>ds, vector<vector<string>>&ans, int n) {
 	}
 }
 
+bool canFill(int row, int col, vector<string>&ds, int n) {
+	int ro = row;
+	int co = col;
 
+	// checking all upper left diagonal places on the board.
+	while (row >= 0 && col >= 0) {
+		if (ds[row][col] == 'Q')return false;
+		row--;
+		col--;
+	}
+
+	// checking the current row on the board.
+	row = ro; col = co;
+	while (col >= 0) {
+		if (ds[row][col] == 'Q')return false;
+		col--;
+	}
+
+	// checking all the lower left diagonal places on the board.
+	col = co;
+	while (row < n && col >= 0) {
+		if (ds[row][col] == 'Q')return false;
+		row++;
+		col--;
+	}
+
+	return true;
+}
+
+
+
+// --------------------------------------------------------------------------------
 
 
 // Method 2 --> using hashing to verify if we can place the queen on the chessboard.
@@ -109,6 +110,8 @@ void solve2(int col,  vector<string>ds, vector<vector<string>>&ans, vector<int>&
 		}
 	}
 }
+
+
 
 int main() {
 #ifndef ONLINE_JUDGE
