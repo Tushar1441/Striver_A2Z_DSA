@@ -24,7 +24,7 @@ int frogJump1(int idx, vector<int>&arr, int k) {
 
 
 // memoization approach
-int frogJump(int idx, vector<int>&arr, int k, vector<int>&dp) {
+int frogJump2(int idx, vector<int>&arr, int k, vector<int>&dp) {
     if (idx == 0)return 0;
     dp[0] = 0;
     int ans = INT_MAX;
@@ -32,13 +32,37 @@ int frogJump(int idx, vector<int>&arr, int k, vector<int>&dp) {
 
     for (int i = 1; i <= k; i++) {
         if (idx >= i) {
-            int cnt = frogJump(idx - i, arr, k, dp) + abs(arr[idx] - arr[idx - i]);
+            int cnt = frogJump2(idx - i, arr, k, dp) + abs(arr[idx] - arr[idx - i]);
             ans = min(ans, cnt);
         }
     }
 
     return dp[idx] = ans;
+    // TC --> O(n)*k
+    // SC --> O(n) + O(n)
 }
+
+
+// tabulation --> bottom up approach
+int frogJump(int n, vector<int>&arr, int k, vector<int>&dp) {
+    dp[0] = 0;
+
+    for (int i = 1; i < n; i++) {
+        int minEnergy = INT_MAX;
+
+        for (int j = 1; j <= k; j++) {
+            if (i - j >= 0) {
+                int curr = dp[i - j] + abs(arr[i] - arr[i - j]);
+                minEnergy = min(minEnergy, curr);
+            }
+        }
+        dp[i] = minEnergy;
+
+    }
+
+    return dp[n - 1];
+}
+
 
 
 int main() {
@@ -55,7 +79,10 @@ int main() {
         cin >> temp;
         arr.push_back(temp);
     }
-    vector<int>dp(n + 1, -1);
-    cout << frogJump(n - 1, arr, k, dp) << endl;
+    vector<int>dp(n, -1);
+    cout << frogJump(n, arr, k, dp) << endl;
+
+    for (auto it : dp)cout << it << " ";
+    cout << endl;
 
 }
