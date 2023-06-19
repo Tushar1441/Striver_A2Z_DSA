@@ -111,7 +111,7 @@ int solve(int n, vector<vector<int>>&arr) {
     return prev[3];
 
     // TC --> O(N*4*3)
-    // SC --> O(N*4);
+    // SC --> O(4);
 }
 
 int ninjaTraining(int n, vector<vector<int>>&arr) {
