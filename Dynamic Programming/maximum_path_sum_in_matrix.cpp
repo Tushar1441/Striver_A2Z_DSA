@@ -108,10 +108,11 @@ int f4(vector<vector<int>>&arr) {
 		prev = temp;
 	}
 
-	int maxi = dp[n - 1][0];
+
+	int maxi = prev[0];
 
 	for (int i = 1; i < m; i++) {
-		maxi = max(maxi, dp[n - 1][i]);
+		maxi = max(maxi, prev[i]);
 	}
 
 	return maxi;
