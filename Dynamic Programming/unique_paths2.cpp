@@ -64,7 +64,7 @@ int count(int m, int n, vector<vector<int>>&arr) {
         vector<int>temp(n, 0);
         for (int j = 0 ; j < n; j++) {
             if (arr[i][j] == -1)temp[j] = 0;
-            if (i == 0 && j == 0)temp[j] = 1;
+            else if (i == 0 && j == 0)temp[j] = 1;
             else {
                 int up = 0, left = 0;
                 if ( i > 0 )up = prev[j];

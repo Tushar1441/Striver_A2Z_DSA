@@ -57,14 +57,14 @@ int solve2(int n, int m, vector<vector<int>>&arr, vector<vector<int>>&dp) {
 // // space optimisation
 int solve3(int n, int m, vector<vector<int>>&arr) {
 
-    vector<int>prev(n, 0);
+    vector<int>prev(m, 0);
 
     for (int i = 0; i < m; i++) {
-        vector<int>temp(n, 0);
+        vector<int>temp(m, 0);
         for (int j = 0 ; j < n; j++) {
             if (i == 0 && j == 0)temp[j] = arr[0][0];
             else {
-                int up = 0, left = 0;
+                int up = INT_MAX, left = INT_MAX;
                 if ( i > 0 )up = prev[j] + arr[i][j];
                 if (j > 0)left = temp[j - 1] + arr[i][j];
                 temp[j] = min(up, left);
