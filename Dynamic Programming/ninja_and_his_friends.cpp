@@ -112,14 +112,17 @@ int f2(int n, int m, vector<vector<int>>&arr) {
 // insted of a 3D vector because we olny need the next row.
 int f3(int n, int m, vector<vector<int>>&arr) {
 
+
+	//make a curr dp and next dp
 	vector<vector<int>>next(m, vector<int>(m, -1));
+	vector<vector<int>>curr(m, vector<int>(m, -1));
 
 	// base case
 	// storing all the last row values into dp vector
 	for (int j1 = 0; j1 < m; j1++) {
 		for (int j2 = 0; j2 < m; j2++) {
-			if (j1 == j2)dp[n - 1][j1][j2] = arr[n - 1][j1];
-			else dp[n - 1][j1][j2] = arr[n - 1][j1] + arr[n - 1][j2];
+			if (j1 == j2) next[j1][j2] = arr[n - 1][j1];
+			else next[j1][j2] = arr[n - 1][j1] + arr[n - 1][j2];
 		}
 	}
 
@@ -136,20 +139,21 @@ int f3(int n, int m, vector<vector<int>>&arr) {
 
 						// checking out of bound case
 						if (j1 + k >= 0 && j1 + k < m && j2 + l >= 0 && j2 + l < m) {
-							if (j1 == j2) maxi = max(maxi, arr[i][j1] + dp[i + 1][j1 + k][j2 + l]);
-							else maxi = max(maxi, arr[i][j1] + arr[i][j2] + dp[i + 1][j1 + k][j2 + l]);
+							if (j1 == j2) maxi = max(maxi, arr[i][j1] + next[j1 + k][j2 + l]);
+							else maxi = max(maxi, arr[i][j1] + arr[i][j2] + next[j1 + k][j2 + l]);
 						}
 					}
 				}
 
 				// store the result
-				dp[i][j1][j2] = maxi;
+				curr[j1][j2] = maxi;
 			}
 		}
+		next = curr;
 	}
 
 
-	return dp[0][0][m - 1];
+	return next[0][m - 1];
 
 	// TC --> O( 3*3 * n*m*m ) => O(n*m*m)
 	// SC --> O(n*m*m) 3D vector
