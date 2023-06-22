@@ -91,7 +91,7 @@ int getSingleElement3(vector<int> &arr) {
 }
 
 // Optimal Approach --> Using Binary Search
-
+// Only applicable if the array is sorted
 int getSingleElement(vetcor<int> &arr) {
 	int n = arr.size();
 
@@ -119,6 +119,9 @@ int getSingleElement(vetcor<int> &arr) {
 			else low = mid + 1;
 		}
 	}
+
+	//TC --> O(log n)
+	// SC --> O(1)
 }
 
 

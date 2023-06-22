@@ -52,14 +52,21 @@ vector<vector<int>> zeroSum(vector<int> &arr) {
 }
 
 
-// Optimal Approach --> Taking one element as starting point and do binary search
-// for the rest of the two elements
+// Optimal Approach -->  put one pointer at starting idx and use two pointers to
+// search for the rest of the two elements
 vector<vector<int>> zeroSum3(vector<int> &arr) {
 	int n = arr.size();
+
+	// main step --> Sort the array.
 	sort(arr.begin(), arr.end());
+
 	vector<vector<int>> ans;
-	for (int i = 0; i < n - 2; i++) {
+	for (int i = 0; i < n - 2; i++) { // starting idx
+
+		// just check if it is not equal to the previous element
 		if (i == 0 || ((i > 0) && (arr[i] != arr[i - 1]))) {
+
+			// declare two pointers
 			int lo = i + 1, high = arr.size() - 1, sum = 0 - arr[i];
 
 			while (lo < high) {

@@ -16,8 +16,8 @@ bool searchInMatrix(vector<vector<int>>&matrix, int target) {
 		if (curr == target)return true;
 
 		else if (curr > target) {
-
-		}
+			if ()
+			}
 	}
 }
 

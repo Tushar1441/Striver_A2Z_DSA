@@ -5,7 +5,7 @@ using namespace std;
 // Brute force approach --> Generate all the subarrays using three nested for loops
 int longestSubarray1(vector<int>& arr, int n, int k) {
 
-	int maxlength = 0;
+	int count = 0;
 	for (int i = 0; i < n; i++) { // starting index
 		for (int j = i; j < n; j++) { // ending index
 			// add all the elements of
@@ -16,10 +16,11 @@ int longestSubarray1(vector<int>& arr, int n, int k) {
 			}
 
 			if (s == k)
-				maxlength = max(maxlength, j - i + 1);
+				count++;
 		}
 	}
-	return maxlength;
+
+	return count;
 
 	// TC --> O(n*3) (running three nested loops)
 	// SC --> O(1)
@@ -29,7 +30,7 @@ int longestSubarray1(vector<int>& arr, int n, int k) {
 // Brute Force approach (Best case)--> Using two nested for loops
 int longestSubarray2(vector<int> &arr, int n, int k) {
 
-	int maxsubarr = 0;
+	int count = 0;
 
 	for (int i = 0; i < n; i++) { // starting index
 		// initialise a sum var
@@ -43,12 +44,12 @@ int longestSubarray2(vector<int> &arr, int n, int k) {
 			sum += arr[j];
 
 			// check for the maxlength
-			if (sum == k) maxsubarr = max(j - i + 1, maxsubarr);
+			if (sum == k) count++;
 
 		}
 	}
 
-	return maxsubarr;
+	return count;
 
 	// TC --> O(N*2) (running two nested loops both for max n times )
 	// SC --> O(1) (no extra space required)
@@ -70,67 +71,21 @@ int longestSubarray3(vector<int> & arr, long long k) {
 		//calculate the prefix sum till index i:
 		sum += arr[i];
 
-		// if the sum = k, update the maxLen:
-		if (sum == k) {
-			maxlength = max(maxlength, i + 1);
-		}
-
-		// calculate the sum of remaining part i.e. x-k:
 		long long rem = sum - k;
 
+		if (prefixSum.find(rem) != prefixSum.end())count += prefixSum[rem];
 
-		//Calculate the length and update maxLen:
-		if (prefixSum.find(rem) != prefixSum.end()) {
-			int len = i - prefixSum[rem] ;
-			maxlength = max(maxlength, len);
-		}
-
-		//Finally, update the map checking the conditions:
-		if (prefixSum.find(sum) == prefixSum.end()) {
-			prefixSum[sum] = i;
-		}
+		prefixSum[sum] += 1;
 
 	}
 
-	return maxlength;
-	// TC --> for searching in the map
-	//              --> in unordered map searching takes O(1) in avg case
-	// 					but in worst case it can go upto O(n) --> O(n^2)
-	//              --> in ordered map searching takes O(logn) --> O(nlogn)
+	return count;
+	// TC --> O(N) or O(N*logN)
+	// for unrodered set O(1) in best and average case ans O(n^2) in worst case
+	// or using ordered set -> logn
 	// SC --> O(n) as we are using a hash map data structure
 }
 
-
-
-// Optimal Approach --> using two pointer method
-int longestSubarray(vector<int> &arr, long long k) {
-	int maxlen = 0;
-	int n = arr.size();
-	int left = 0, right = 0;
-	long long sum = arr[0];
-
-	while (right < n ) {
-
-		// if sum > k, reduce the subarray from left
-		// until sum becomes less or equal to k:
-		while (left <= right && sum > k) {
-			sum -= arr[left];
-			left++;
-		}
-
-		// if sum = k, update the maxLen i.e. answer:
-		if (sum == k) {
-			maxlen = max(maxlen, right - left + 1);
-
-		}
-
-		// Move forward thw right pointer:
-		right++;
-		if (right < n) sum += arr[right];
-	}
-
-	return maxlen;
-}
 
 
 int main() {
@@ -153,8 +108,3 @@ int main() {
 	cout << ans << endl;
 
 }
-// 	for (int i = 0; i < n; i++) {
-// 		cout << arr[i] << " ";
-// 	}
-// 	cout << endl;
-// }

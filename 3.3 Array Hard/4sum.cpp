@@ -23,7 +23,7 @@ vector<vector<int>> zeroSum1(vector<int> &arr) {
 	vector<vector<int>> ans(st.begin(), st.end());
 	return ans;
 
-	// TC --> O(n^4 * 3k)
+	// TC --> O(n^4 + 4*k)  4*K to insert the quadruplets into vector
 	// SC --> O(4*k) k is the number of quadruplets
 }
 
