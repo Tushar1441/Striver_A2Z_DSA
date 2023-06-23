@@ -28,16 +28,17 @@ bool solve(int idx, vector<int>arr, vector<int>&dp) {
 bool solve1(vector<int>arr) {
 	int n = arr.size();
 	vector<int>dp(n, -1);
-	dp[n - 1] = 0;
 
+	// base case
+	dp[n - 1] = 1;
 
+	// all possible states
 	for (int i = n - 2; i >= 0; i--) {
-		bool ans = 0;
-		if (arr[i] != 0) {
-			for (int j = 1; j <= arr[i]; j++) {
-				bool curr =  dp[i - j];
-				ans = ans | curr;
-			}
+		bool ans = false;
+
+		for (int j = 1; j <= arr[i]; j++) {
+			if (i + j < n)bool curr =  dp[i + j];
+			ans = ans | curr;
 		}
 
 		dp[i] = ans;

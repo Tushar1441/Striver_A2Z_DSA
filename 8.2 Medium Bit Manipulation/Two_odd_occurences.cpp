@@ -2,29 +2,42 @@
 using namespace std;
 
 // Brute Force --> Just do a linear search on the array and find the two elements
-// appearing once in the whole array.
-// TC --> O(n*n) --> n for selecting elements from the array and n for iterating for all the elements
+// appearing once in the whole array using two nested for loops.
+// TC --> O(n^2)
 
 
+
+// Optimal Approach --> Using Bitwise Xor
 vector<long long int> twoOddOccurences(vector<long long int>& arr)
 {
 	int n = arr.size();
+
+	// Take the xor of all the array elements
 	int xor1 = 0;
 	for (int i = 0; i < n; i++) {
 		xor1 ^= arr[i];
+		// it contains a^b
 	}
+
+	// find the smallest differentiating bit position.
+	// or just find the rightmost set bit.
 	int setBit = 0;
-	int x = xor1;
-	while (x) {
-		if (x & 1) {
+
+	while (1) {
+		if (xor1 & (1 << setBit)) {
 			break;
 		}
 		setBit++;
-		x >>= 1;
 	}
+
+	// This set bit position signifies that both the numbers are
+	// are different at this particular bit.
+
 
 	vector<long long int> nums;
 
+	// group all the numbers into two groups having the bitno position
+	// bit as 1 or 0.
 	int xor2 = 0;
 	for (int i = 0; i < n; i++) {
 		if (arr[i] & (1 << setBit)) {
@@ -34,10 +47,6 @@ vector<long long int> twoOddOccurences(vector<long long int>& arr)
 
 	nums.push_back(xor2);
 	nums.push_back(xor1 ^ xor2);
-
-	for (auto it : nums) {
-		cout << it << " ";
-	}
 
 	return nums;
 

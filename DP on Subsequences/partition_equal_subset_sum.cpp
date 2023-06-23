@@ -122,6 +122,7 @@ bool f3(int n, vector<int>&arr, int target) {
 	// SC -- O(k)
 }
 
+
 bool canPartition(vector<int> &arr, int n) {
 	int totalSum = 0;
 	for (int i = 0; i < n; i++) {
@@ -135,7 +136,7 @@ bool canPartition(vector<int> &arr, int n) {
 	vector<vector<int>>dp(n, vector<int>(totalSum + 1, -1));
 	//if sum is even, then just find if a subset with sum == totalsum/2
 	// exists in the array or not.
-	// if it exists then the remaining subset will automatically become totalsum/2.
+	// if it exists then the remaining subset sum will automatically become totalsum/2.
 	return f1(n - 1, arr, totalSum / 2, dp);
 }
 

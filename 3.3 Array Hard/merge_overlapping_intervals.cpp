@@ -1,44 +1,42 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-bool comp(vector<int>&a, vector<int>& b) {
-	if (a[0] < b[0])return true;
 
-	else if (a[0] == b[0]) {
-		return a[1] <= b[1];
-	}
-	else return false;
-}
-
-
+//
 vector<vector<int>> mergeIntervals(vector<vector<int>>& arr) {
 	int n = arr.size();
 
 	// sort the array if not sorted earlier.
-	sort(arr.begin(), arr.end(), comp);
+	// it will sort the intervals in increasing order of their starting time.
+	sort(arr.begin(), arr.end());
 
 	vector<vector<int>>ans;
 
 	// loop through all the intervals
 	for (int i = 0; i < n; i++) {
 
+		// push the first interval
 		if (i == 0)ans.push_back(arr[i]);
 
 		// check if it can be merged into previous interval
-		if (ans[idx][1] >= arr[i][0]) {
-			ans[idx][1] = max(arr[i][1], ans[idx][1]);
+		if (ans.back()[1] >= arr[i][0]) {
+			ans.back()[1] = max(arr[i][1], ans.back()[1]);
 		}
 
+		// if cannot be merged then push the interval into the array.
 		else {
 			ans.push_back(arr[i]);
-			idx++;
 		}
 	}
 
 	return ans;
 
 	// TC --> O(n*logn) + O(n) (sorting the array + traversing in the array).
+	// SC --> O(n*2) for storing the answer, not using any other extra space.
 }
+
+
+
 
 int main() {
 #ifndef ONLINE_JUDGE
