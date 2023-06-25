@@ -16,7 +16,6 @@ int solve(int idx, vector<int>arr, int target) {
 	// not pick
 	int notpick = solve(idx - 1, arr, target);
 
-	cout << pick << " " << notpick << endl;
 	return min(pick, notpick);
 
 	//TC --> O(2^t) here t is the max target.
@@ -50,10 +49,9 @@ int solveMemoWay(int idx, vector<int>arr, int target, vector<vector<int>>&dp) {
 
 int tabulationWay(vector<int>arr, int x) {
 	int n = arr.size();
-	vector<vector<int>> dp(n, vector<int>(x + 1, 0));
+	vector<vector<long>> dp(n, vector<int>(x + 1, 0));
 
 	// base case
-
 	for (int i = 0; i <= x; i++) {
 		if (i % arr[0] == 0) dp[0][i] = i / arr[0];
 		else dp[0][i] = 1e9;
@@ -62,7 +60,7 @@ int tabulationWay(vector<int>arr, int x) {
 
 	//possible states
 	for (int idx = 1; idx < n; idx++) {
-		for (int target = 1; target <= x; target++) {
+		for (int target = 0; target <= x; target++) {
 
 			int pick = 1e9;
 			if (target >= arr[idx]) pick = dp[idx][target - arr[idx]] + 1;
@@ -70,7 +68,7 @@ int tabulationWay(vector<int>arr, int x) {
 			// not pick
 			int notpick = dp[idx - 1][target];
 
-			return dp[idx][target]  = min(pick, notpick);
+			dp[idx][target]  = min(pick, notpick);
 		}
 	}
 
