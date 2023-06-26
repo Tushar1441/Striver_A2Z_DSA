@@ -30,23 +30,10 @@ void insertAtHead(Node* &head, int val) {
 	head = temp;
 }
 
-bool isLoop(Node* head) {
-	if (head == NULL || head->next == NULL)return false;
 
-	Node* slow = head;
-	Node* fast = head;
-
-	while (fast && fast->next) {
-		fast = fast->next->next;
-		slow = slow->next;
-
-		if (slow == fast)return true;
-	}
-
-	return false;
-}
-
+// using Set data structure
 Node* detectCycle(Node* head) {
+
 	unordred_set<Node*>st;
 
 	while (head) {
@@ -58,8 +45,68 @@ Node* detectCycle(Node* head) {
 		head = head->next;
 	}
 
-	return false;
+	return NULL;
+
+	// TC --> O(n);
+	// SC --> O(n);
 }
+
+
+// using slow and fast pointers
+// move slow by one node and move fast by two nodes.
+// If a cycle exists in the ll, they are bound to meet at a certain node.
+bool isLoop(Node* head) {
+	if (head == NULL || head->next == NULL)return false;
+
+	Node* slow = head;
+	Node* fast = head;
+
+	while (fast->next && fast->next->next) {
+		fast = fast->next->next;
+		slow = slow->next;
+
+		if (slow == fast)return true;
+	}
+
+	return false;
+
+	// TC --> O(n)
+	// SC --> O(1)
+}
+
+
+// To return the node also
+Node* detectCycle1(Node* head) {
+
+	if (head == NULL || head->next == NULL)return NULL;
+
+	// Make three pointers
+	Node* slow = head;
+	Node* fast = head;
+	Node* entry = head;
+
+	// move the fast and slow pointers by 2 and 1 steps respectively
+	while (fast->next && fast->next->next) {
+		fast = fast->next->next;
+		slow = slow->next;
+
+		// if both pointers collide then break out of the loop.(it means a cycle exist)
+		if (slow == fast)
+		{
+			// Move the entry pointer and the slow pointer simultaneously.
+			// Their collision point will be the starting point of the cycle.
+			while (slow != entry)
+			{
+				slow = slow->next;
+				entry = entry->next;
+			}
+			return entry;
+		}
+	}
+
+	return NULL;
+}
+
 
 
 int main() {
@@ -77,7 +124,6 @@ int main() {
 	insertAtHead(node1, 1);
 	print(node1);
 
-	Node* node2 = reverseLLRecursive(node1);
-	print(node2);
+
 
 }
