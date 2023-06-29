@@ -81,6 +81,7 @@ Node* merge(Node* left, Node* right) {
 	return dummy->next;
 }
 
+
 Node* sortList(Node* head) {
 	if (head == NULL || head->next == NULL)return head;
 
@@ -107,7 +108,6 @@ Node* sortList(Node* head) {
 	// merge the left and rigth half
 
 	return merge(left, right);
-
 }
 
 
