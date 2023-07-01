@@ -30,7 +30,6 @@ vector<int> majorityElement1(vector<int> &arr) {
 
 
 // Optimal Approach --> Extended Boyer Moore's Voting Algorithm
-
 vector<int> majorityElement(vector<int> &arr) {
 	int n = arr.size();
 	vector<int> ans;

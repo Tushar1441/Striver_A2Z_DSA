@@ -39,24 +39,61 @@ int longestSubstring(string s) {
 }
 
 
-
-// optimised Approach --> using two pointer approach.
-
-int longestSubstring(string &s) {
-	vector<int>mapp(256, 0);
-
+// Better Approach --> Sliding Window Algorithm using Set data structure
+int longestSubstring1(string &s) {
+	if (s.size() == 0)return 0;
+	// store the characters
+	unordered_set<int>st;
 	int ans = 0;
+	int n = s.size();
+
 	int left = 0, right = 0;
-
-	while (right < s.size() ) {
-
-		if (s[right] != -1) {
-
+	while (right < n) {
+		if (st.find(s[right]) != st.end()) {
+			while (left < right && st.find(s[right]) != st.end()) {
+				st.erase(s[left]);
+				left++;
+			}
 		}
+
+		st.insert(s[right]);
+		ans = max(ans, right - left + 1);
+		right++;
+	}
+
+	return ans;
+
+	// TC --> O(2*n)
+	// SC --> O(n)
+}
+
+
+
+// optimised Approach --> using sliding window algorithm.
+// with map data structure
+
+int longestSubstring2(string &s) {
+	int n = s.size();
+
+	unordered_map<char, int>mpp;
+	int ans = 0;
+
+	int left = 0, right = 0;
+	while (right < n) {
+
+		if (mpp.find(s[right]) != mpp.end()) {
+			left = max(mpp[s[right]] + 1, left);
+		}
+
+		mpp[s[right]] = right;
 
 		ans = max(ans, right - left + 1);
 		right++;
 	}
+
+	return ans;
+
+	// TC --> O(N)
 
 }
 
@@ -72,6 +109,6 @@ int main() {
 	string s;
 	cin >> s;
 
-	int n = longestSubstring(s);
+	int n = longestSubstring2(s);
 	cout << n << endl;
 }

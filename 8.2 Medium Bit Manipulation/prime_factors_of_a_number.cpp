@@ -26,9 +26,6 @@ int main() {
 #endif
 	int n;
 	cin >> n;
-
-	// call the sieve function
 	allPrimeNumbers(n);
-	// cout << countPrime(n, isPrime) << endl;
 
 }
