@@ -110,9 +110,10 @@ int tabulationWay(string &exp) {
 
 	for (int i = n - 1; i >= 0; i--) {
 		for (int j = 0; j < n; j++) {
-			for (int isTrue = 1; isTrue >= 0; isTrue--) {
+			if (i > j)continue;
+			for (int isTrue = 0; isTrue < 2 ; isTrue++) {
 				// don't overwrite the base case values.
-				if (i == j || i > j)continue;
+				if (i == j)continue;
 				ll ways = 0;
 				for (int k = i + 1; k < j; k += 2) {
 					ll lT = dp[i][k - 1][1];
@@ -143,7 +144,13 @@ int tabulationWay(string &exp) {
 		}
 	}
 
-	return dp[0][n - 1][0];
+	return dp[0][n - 1][1];
+
+	// Time Complexity: O(N*N*2 * N) ~ O(N3)
+	// There are a total of 2*N^2 no. of states. And for each state,
+	// we are running a partitioning loop roughly for N times.
+
+	// SC --> O(2*N*N) --> 3D dp array
 
 }
 
