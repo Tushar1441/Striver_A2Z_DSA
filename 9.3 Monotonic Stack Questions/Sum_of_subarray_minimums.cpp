@@ -23,19 +23,53 @@ int sumSubarrayMins(vector<int>&nums) {
 }
 
 
+// Optimal Solution
+// Approach --> Find the number of times an element is
+// minimum in all the subarrays it appeared.
+// we will use next smaller to right and next smaller to left pattern.
 int sumSubarrayMins1(vector<int>&nums) {
 	int n = nums.size();
-	int res = 0;
 
-	int mini = INT_MAX;
+	vector<int>nsr(n);
+	vector<int>nsl(n);
+
+	stack<int>st;
+
 	for (int i = 0; i < n; i++) {
-		if (nums[i] < mini) {
-			mini = nums[i];
+		while (!st.empty() && nums[st.top()] >= nums[i]) {
+			st.pop();
 		}
-		res = res + i * mini + nums[i];
+
+		if (st.empty())nsl[i] = -1;
+		else {
+			nsl[i] = st.top();
+		}
+
+		st.push(i);
 	}
 
-	return res;
+	while (!st.empty())st.pop();
+
+	for (int i = n - 1; i >= 0 ; i--) {
+		while (!st.empty() && nums[st.top()] > nums[i]) {
+			st.pop();
+		}
+
+		if (st.empty())nsr[i] = n;
+		else {
+			nsr[i] = st.top();
+		}
+
+		st.push(i);
+	}
+
+	long long sum = 0;
+
+	for (long long i = 0; i < n; i++) {
+		sum = (sum + nums[i] * (nsr[i] - i) * (i - nsl[i])) % mod ;
+	}
+
+	return sum;
 }
 
 
