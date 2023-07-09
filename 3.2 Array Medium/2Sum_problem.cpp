@@ -60,6 +60,24 @@ vector<int> twoSum(vector<int> &arr, int target) {
 
 
 // Optimal Approach --> Without using map data structure
+vector<int>twoSum2(vector<int>&arr, int target) {
+	int n = arr.size();
+	int left = 0, right = n - 1;
+	vector<int>ans;
+
+	while (left <= right) {
+		if (arr[left] + arr[right] == target) {
+			ans.push_back(left + 1);
+			ans.push_back(right + 1);
+			return ans;
+		}
+
+		else if (arr[left] + arr[right] < target)left++;
+		else right--;
+	}
+
+	return ({ -1, -1});
+}
 
 int main() {
 #ifndef ONLINE_JUDGE
