@@ -26,23 +26,20 @@ int KthMissingPositiveIntegar1(vector<int> &arr , int k) {
 // Optimal Solution -- using Binary Search
 int KthMissingPositiveIntegar(vector<int> &arr, int k) {
 	int n = arr.size();
-	int low = 0, high = n - 1, mid;
+	int low = 0, high = arr[n - 1];
 
 	while (low <= high) {
-		mid = (low + high) >> 1;
+		int mid = (low + high) >> 1;
 
-		if (low == high) {
-			return ( arr[mid] - (arr[mid] - mid - 1) + k  );
+		if (isvalid(arr, k, mid)) {
+			high = mid - 1;
 		}
 
-		if (arr[mid] - (mid + 1) < k) {
-			low = mid + 1;
-		}
-
-		else high = mid - 1;
+		low = mid + 1;
 	}
 
-	return arr[n - 1] + (k - (arr[n - 1] - n - 1));
+	return low;
+
 }
 
 

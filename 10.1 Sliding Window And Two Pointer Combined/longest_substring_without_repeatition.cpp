@@ -68,13 +68,12 @@ int longestSubstring1(string &s) {
 }
 
 
-
 // optimised Approach --> using sliding window algorithm.
 // with map data structure
-
 int longestSubstring2(string &s) {
 	int n = s.size();
 
+	// store the unique chars and their indexes
 	unordered_map<char, int>mpp;
 	int ans = 0;
 
@@ -85,16 +84,16 @@ int longestSubstring2(string &s) {
 			left = max(mpp[s[right]] + 1, left);
 		}
 
+		// update the map
 		mpp[s[right]] = right;
 
+		// update the ans
 		ans = max(ans, right - left + 1);
 		right++;
 	}
 
 	return ans;
-
 	// TC --> O(N)
-
 }
 
 
