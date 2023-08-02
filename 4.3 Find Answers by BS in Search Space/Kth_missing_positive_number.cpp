@@ -2,7 +2,7 @@
 using namespace std;
 
 // Brute Force Solution
-int KthMissingPositiveIntegar1(vector<int> &arr , int k) {
+int KthMissingPositiveIntegar(vector<int> &arr , int k) {
 	int n = arr.size(), count = 0;
 	int last = 0;
 	for (int i = 0; i < n; i++) {
@@ -23,23 +23,42 @@ int KthMissingPositiveIntegar1(vector<int> &arr , int k) {
 }
 
 
-// Optimal Solution -- using Binary Search
-int KthMissingPositiveIntegar(vector<int> &arr, int k) {
+int KthMissingPositiveIntegar1(vector<int>&arr, int k) {
 	int n = arr.size();
-	int low = 0, high = arr[n - 1];
+	int curr = 1;
+	int j = 0;
 
-	while (low <= high) {
-		int mid = (low + high) >> 1;
+	while (j < n) {
 
-		if (isvalid(arr, k, mid)) {
-			high = mid - 1;
-		}
+		if (arr[j] == curr) j++;
+		else k--;
 
-		low = mid + 1;
+		if (k == 0)return curr;
+		curr++;
 	}
 
-	return low;
+	return curr + k;
+}
 
+
+
+// Optimal Solution -- using Binary Search
+int KthMissingPositiveIntegar2(vector<int> &arr, int k) {
+
+	int n = arr.size();
+	int low = 0, high = n - 1;
+
+	while (low <= high) {
+
+		int mid = (low + high) >> 1;
+		int missing = arr[mid] - (mid + 1);
+
+		if (missing < k) low = mid + 1;
+		else high = mid - 1;
+	}
+
+	// or return low + k;
+	return high + 1 + k;
 }
 
 
@@ -61,7 +80,7 @@ int main() {
 		arr.push_back(temp);
 	}
 
-	cout << KthMissingPositiveIntegar(arr, k) << endl;
+	cout << KthMissingPositiveIntegar2(arr, k) << endl;
 
 
 }

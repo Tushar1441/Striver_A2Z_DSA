@@ -22,6 +22,7 @@ bool isPossible(vector<int> arr, int n, int k, int mid) {
 int aggresiveCows(vector<int> &stalls , int k) {
 	int n = stalls.size();
 	if (n < k)return -1;
+
 	sort(stalls.begin(), stalls.end());
 	int low = 1;
 	int high = stalls[n - 1];

@@ -2,11 +2,9 @@
 using namespace std;
 
 
-
-
-// if the matrix is row-wise and column-wise sorted then
-// we can treat it as a linear sorted array
-bool binarySearch(vector<vector<int>> &matrix, int target) {
+// if the matrix is row-wise sorted and the last element of a row is greater than the first element
+// of the next row then we can treat it as a linear sorted array with n*m-1 elements.
+bool searchIn2DMatrix(vector<vector<int>> &matrix, int target) {
 	int n = matrix.size();
 	int m = matrix[0].size();
 	int low = 0, high = n * m - 1;
